@@ -25,5 +25,5 @@ jobs:
         uses: Amadevus/pwsh-script@v2
         id: my-script
         with:
-          script: '1 + 1'
+          script: Write-Host "Hello, World!"
       - run: echo "${{ steps.my-script.outputs.result }}"
