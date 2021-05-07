@@ -29,3 +29,9 @@ jobs:
                   Write-Host "Vishali";
           
       - run: echo "${{ steps.my-script.outputs.result }}"
+      
+      
+      - name: Call script filr
+        shell: pwsh
+        run: |
+               .\welcome.ps1
