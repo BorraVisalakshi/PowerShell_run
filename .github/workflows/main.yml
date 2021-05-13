@@ -4,9 +4,8 @@ name: CI
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+  repository_dispatch:
+    types: [my-event]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,19 +18,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        uses: Amadevus/pwsh-script@v2
-        id: my-script
         with:
-          script: Write-Host "Hello, World!";
-                  Write-Host "Vishali";
-          
-      - run: echo "${{ steps.my-script.outputs.result }}"
+          ref: ${{ github.event.client_payload.ref }}
       
+      - run: echo ${{ github.event.client_payload.sha }}
+      
+     
       
       - name: Call script filr
         shell: pwsh
         run: |
                .\welcome.ps1
+        
